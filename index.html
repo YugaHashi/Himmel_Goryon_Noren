@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ごりょんさんののれん</title>
+</head>
+<body style="text-align:center; font-family:sans-serif; margin-top:50px;">
+  <a id="ar-launcher"
+     style="padding:14px 24px;
+            font-size:14px;
+            background:#1E3A8A;
+            color:#ffffff;
+            text-decoration:none;
+            border-radius:10px;
+            display:inline-block;
+            font-weight:bold;
+            box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+    ARでのれんを見る<br>（画面が切り替わったらタップ）
+  </a>
+
+  <script>
+    const ua = navigator.userAgent.toLowerCase();
+    const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isAndroid = /android/.test(ua);
+    const usdz = 'https://yugahashi.github.io/Himmel_Goryon_Noren/noren.usdz';
+    const glb = 'https://yugahashi.github.io/Himmel_Goryon_Noren/noren.glb';
+    const btn = document.getElementById('ar-launcher');
+
+    if (isIOS) {
+      btn.setAttribute('rel', 'ar');
+      btn.setAttribute('href', usdz);
+    } else if (isAndroid) {
+      const intentUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${glb}&mode=ar_preferred#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=${glb};end;`;
+      btn.setAttribute('href', intentUrl);
+    } else {
+      btn.innerHTML = "ARはスマホでご利用ください<br>（画面が切り替わったらタップ）";
+      btn.style.background = '#ccc';
+      btn.style.pointerEvents = 'none';
+    }
+  </script>
+</body>
+</html>
